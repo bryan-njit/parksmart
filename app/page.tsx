@@ -21,14 +21,11 @@ export default function DashboardPage() {
         <AlertBanner key={alert.id} alert={alert} />
       ))}
 
-      <div className="px-4 pt-4 pb-2 space-y-4">
+      <div className="space-y-4 px-4 pb-2 pt-4">
         {bestLot && <LotCard lot={bestLot} size="lg" />}
 
         {otherAlerts.length > 0 && (
-          <div
-            className="rounded-xl border overflow-hidden"
-            style={{ borderColor: 'var(--border-default)' }}
-          >
+          <div className="overflow-hidden rounded-xl border">
             {otherAlerts.map((alert) => (
               <AlertBanner key={alert.id} alert={alert} />
             ))}
@@ -36,9 +33,7 @@ export default function DashboardPage() {
         )}
 
         <div>
-          <p className="text-sm font-semibold mb-3" style={{ color: 'var(--text-secondary)' }}>
-            All Lots
-          </p>
+          <p className="mb-3 text-sm font-semibold text-ink-secondary">All Lots</p>
           <div className="grid grid-cols-2 gap-3">
             {SIMULATED_LOTS.map((lot) => (
               <LotCard key={lot.id} lot={lot} />

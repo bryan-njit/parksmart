@@ -3,40 +3,30 @@ import { Alert } from '@/types';
 
 const config = {
   danger: {
-    bg: 'var(--njit-red-subtle)',
-    border: 'var(--njit-red)',
+    classes: 'bg-njit-red-subtle border-njit-red',
     icon: XCircle,
-    iconColor: 'var(--njit-red)',
+    iconClass: 'text-njit-red',
   },
   warning: {
-    bg: '#FEFCE8',
-    border: '#CA8A04',
+    classes: 'bg-status-filling-bg border-status-filling',
     icon: AlertTriangle,
-    iconColor: '#CA8A04',
+    iconClass: 'text-status-filling',
   },
   info: {
-    bg: '#EFF6FF',
-    border: '#2563EB',
+    classes: 'bg-blue-50 border-blue-600',
     icon: Info,
-    iconColor: '#2563EB',
+    iconClass: 'text-blue-600',
   },
 };
 
 export default function AlertBanner({ alert }: { alert: Alert }) {
-  const { bg, border, icon: Icon, iconColor } = config[alert.severity];
+  const { classes, icon: Icon, iconClass } = config[alert.severity];
   return (
-    <div
-      className="flex items-start gap-3 px-4 py-3 border-l-4"
-      style={{ backgroundColor: bg, borderLeftColor: border }}
-    >
-      <Icon size={16} style={{ color: iconColor, marginTop: 1 }} className="shrink-0" />
+    <div className={`flex items-start gap-3 border-l-4 px-4 py-3 ${classes}`}>
+      <Icon size={16} className={`mt-0.5 shrink-0 ${iconClass}`} />
       <div className="min-w-0">
-        <p className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-          {alert.title}
-        </p>
-        <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>
-          {alert.subtitle}
-        </p>
+        <p className="text-sm font-medium text-ink">{alert.title}</p>
+        <p className="mt-0.5 text-xs text-ink-secondary">{alert.subtitle}</p>
       </div>
     </div>
   );

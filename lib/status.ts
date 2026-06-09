@@ -11,6 +11,7 @@ export function getStatus(available: number | null, total: number): LotStatus {
   return 'open';
 }
 
+// hex values for things that can't use Tailwind classes (charts, map markers)
 export const statusColors: Record<LotStatus, string> = {
   open: '#16A34A',
   filling: '#CA8A04',
@@ -19,12 +20,20 @@ export const statusColors: Record<LotStatus, string> = {
   unknown: '#94A3B8',
 };
 
-export const statusBgColors: Record<LotStatus, string> = {
-  open: '#F0FDF4',
-  filling: '#FEFCE8',
-  busy: '#FFF7ED',
-  full: '#FEF2F2',
-  unknown: '#F8FAFC',
+export const statusTextClass: Record<LotStatus, string> = {
+  open: 'text-status-open',
+  filling: 'text-status-filling',
+  busy: 'text-status-busy',
+  full: 'text-status-full',
+  unknown: 'text-ink-tertiary',
+};
+
+export const statusBgClass: Record<LotStatus, string> = {
+  open: 'bg-status-open',
+  filling: 'bg-status-filling',
+  busy: 'bg-status-busy',
+  full: 'bg-status-full',
+  unknown: 'bg-status-unknown',
 };
 
 export const statusLabels: Record<LotStatus, string> = {

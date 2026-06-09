@@ -21,13 +21,10 @@ export default function SettingsPage() {
     <AppShell>
       <Header title="Settings" showBack />
 
-      <div className="px-4 pt-4 space-y-6">
+      <div className="space-y-6 px-4 pt-4">
         {/* Permit selector */}
         <div>
-          <p
-            className="text-xs font-semibold uppercase tracking-wide mb-3"
-            style={{ color: 'var(--text-tertiary)' }}
-          >
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-tertiary">
             My Permit
           </p>
           <div className="flex flex-wrap gap-2">
@@ -35,11 +32,11 @@ export default function SettingsPage() {
               <button
                 key={p}
                 onClick={() => setPermit(p)}
-                className="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
-                style={{
-                  background: permit === p ? 'var(--njit-red)' : 'var(--surface-tertiary)',
-                  color: permit === p ? '#fff' : 'var(--text-secondary)',
-                }}
+                className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  permit === p
+                    ? 'bg-njit-red text-white'
+                    : 'bg-surface-tertiary text-ink-secondary'
+                }`}
               >
                 {p}
               </button>
@@ -47,63 +44,43 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div
-          className="border-t"
-          style={{ borderColor: 'var(--border-default)' }}
-        />
+        <div className="border-t" />
 
         {/* Data info */}
         <div>
-          <p
-            className="text-xs font-semibold uppercase tracking-wide mb-3"
-            style={{ color: 'var(--text-tertiary)' }}
-          >
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-tertiary">
             Data
           </p>
           <div className="space-y-1">
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                Polling interval
-              </span>
-              <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                Every 30s
-              </span>
+              <span className="text-sm text-ink-secondary">Polling interval</span>
+              <span className="text-sm font-medium text-ink">Every 30s</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                Data source
-              </span>
-              <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>
-                NJIT Facilities
-              </span>
+              <span className="text-sm text-ink-secondary">Data source</span>
+              <span className="text-sm font-medium text-ink">NJIT Facilities</span>
             </div>
           </div>
         </div>
 
-        <div
-          className="border-t"
-          style={{ borderColor: 'var(--border-default)' }}
-        />
+        <div className="border-t" />
 
         {/* About */}
         <div>
-          <p
-            className="text-xs font-semibold uppercase tracking-wide mb-3"
-            style={{ color: 'var(--text-tertiary)' }}
-          >
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-tertiary">
             About
           </p>
           <div className="space-y-1">
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Version</span>
-              <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>1.0.0</span>
+              <span className="text-sm text-ink-secondary">Version</span>
+              <span className="text-sm font-medium text-ink">1.0.0</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Built by</span>
-              <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>bryan-njit</span>
+              <span className="text-sm text-ink-secondary">Built by</span>
+              <span className="text-sm font-medium text-ink">bryan-njit</span>
             </div>
           </div>
-          <p className="text-xs mt-4" style={{ color: 'var(--text-tertiary)' }}>
+          <p className="mt-4 text-xs text-ink-tertiary">
             Not an official NJIT application. Data sourced from NJIT Facilities APIs.
           </p>
         </div>
