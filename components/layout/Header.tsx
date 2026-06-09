@@ -3,6 +3,7 @@ import { Settings, RefreshCw, ChevronLeft, MapPin } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
+  brand?: boolean;
   showBack?: boolean;
   showRefresh?: boolean;
   showSettings?: boolean;
@@ -12,6 +13,7 @@ interface HeaderProps {
 
 export default function Header({
   title,
+  brand = false,
   showBack = false,
   showRefresh = false,
   showSettings = false,
@@ -29,7 +31,13 @@ export default function Header({
             <ChevronLeft size={20} className="text-ink-secondary" />
           </Link>
         )}
-        <h1 className="truncate text-base font-semibold text-ink">{title}</h1>
+        {brand ? (
+          <h1 className="truncate text-lg font-bold tracking-tight text-ink">
+            Park<span className="text-njit-red">Smart</span>
+          </h1>
+        ) : (
+          <h1 className="truncate text-base font-semibold text-ink">{title}</h1>
+        )}
       </div>
 
       <div className="flex shrink-0 items-center gap-1">
