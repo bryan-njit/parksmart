@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Car, TrendingUp, MessageCircle, Bell } from 'lucide-react';
+import { Car, Map, TrendingUp, MessageCircle, Bell } from 'lucide-react';
 
 const tabs = [
   { href: '/', label: 'Dashboard', icon: Car },
+  { href: '/map', label: 'Map', icon: Map },
   { href: '/trends', label: 'Trends', icon: TrendingUp },
   { href: '/report', label: 'Report', icon: MessageCircle },
   { href: '/alerts', label: 'Alerts', icon: Bell },
