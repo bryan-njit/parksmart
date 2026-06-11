@@ -1,19 +1,24 @@
+'use client';
+
 import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 import LotCard from '@/components/lots/LotCard';
 import PollIndicator from '@/components/lots/PollIndicator';
 import AlertBanner from '@/components/alerts/AlertBanner';
 import { SIMULATED_LOTS, SIMULATED_ALERTS } from '@/data/simulated';
+import { useParkingData } from '@/hooks/useParkingData';
 
 export default function DashboardPage() {
-  const bestLot = SIMULATED_LOTS.filter(
+  const { lots, lastUpdated } = useParkingData(SIMULATED_LOTS);
+
+  const bestLot = lots.filter(
     (l) => l.status !== 'unknown' && l.status !== 'full'
   ).sort((a, b) => (b.available ?? 0) - (a.available ?? 0))[0];
 
   const dangerAlerts = SIMULATED_ALERTS.filter((a) => a.severity === 'danger');
   const otherAlerts = SIMULATED_ALERTS.filter((a) => a.severity !== 'danger');
 
-  const openCount = SIMULATED_LOTS.filter(
+  const openCount = lots.filter(
     (l) => l.status !== 'unknown' && l.status !== 'full'
   ).length;
 
@@ -34,11 +39,11 @@ export default function DashboardPage() {
               All Lots
             </h2>
             <span className="text-xs text-ink-tertiary">
-              {openCount} of {SIMULATED_LOTS.length} with spots
+              {openCount} of {lots.length} with spots
             </span>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {SIMULATED_LOTS.map((lot) => (
+            {lots.map((lot) => (
               <LotCard key={lot.id} lot={lot} />
             ))}
           </div>
@@ -59,7 +64,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="flex justify-center pb-2">
-        <PollIndicator lastUpdated={Date.now() - 12000} />
+        <PollIndicator lastUpdated={lastUpdated} />
       </div>
     </AppShell>
   );
