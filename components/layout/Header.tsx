@@ -1,18 +1,18 @@
 import Link from 'next/link';
-import { Info, ChevronLeft } from 'lucide-react';
+import { Settings, ChevronLeft } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
   brand?: boolean;
   showBack?: boolean;
-  showAbout?: boolean;
+  showSettings?: boolean;
 }
 
 export default function Header({
   title,
   brand = false,
   showBack = false,
-  showAbout = false,
+  showSettings = false,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center border-b bg-surface px-4 shadow-card">
@@ -41,13 +41,13 @@ export default function Header({
         )}
       </div>
 
-      {showAbout && (
+      {showSettings && (
         <Link
-          href="/about"
-          aria-label="About"
+          href="/settings"
+          aria-label="Settings"
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
         >
-          <Info size={18} className="text-ink-secondary" />
+          <Settings size={18} className="text-ink-secondary" />
         </Link>
       )}
     </header>

@@ -111,7 +111,7 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <Header title="ParkSmart" brand showAbout />
+      <Header title="ParkSmart" brand showSettings />
 
       <div className="space-y-6 px-4 pb-2 pt-5">
         <section>

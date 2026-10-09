@@ -1,10 +1,10 @@
 import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 
-export default function AboutPage() {
+export default function SettingsPage() {
   return (
     <AppShell>
-      <Header title="About" showBack />
+      <Header title="Settings" showBack />
 
       <div className="space-y-1 px-4 pt-4">
         <div className="flex justify-between">
