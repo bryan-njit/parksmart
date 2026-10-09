@@ -13,11 +13,11 @@ export function getStatus(available: number | null, total: number): LotStatus {
 
 // hex values for things that can't use Tailwind classes (charts, map markers)
 export const statusColors: Record<LotStatus, string> = {
-  open: '#16A34A',
-  filling: '#CA8A04',
-  busy: '#EA580C',
-  full: '#DC2626',
-  unknown: '#94A3B8',
+  open: '#34D399',
+  filling: '#FBBF24',
+  busy: '#FB923C',
+  full: '#F87171',
+  unknown: '#71717A',
 };
 
 export const statusTextClass: Record<LotStatus, string> = {
