@@ -36,10 +36,19 @@ export const statusBgClass: Record<LotStatus, string> = {
   unknown: 'bg-status-unknown',
 };
 
+// small rounded label next to the spot count
+export const statusPillClass: Record<LotStatus, string> = {
+  open: 'bg-status-open-bg text-status-open',
+  filling: 'bg-status-filling-bg text-status-filling',
+  busy: 'bg-status-busy-bg text-status-busy',
+  full: 'bg-status-full-bg text-status-full',
+  unknown: 'bg-status-unknown-bg text-ink-tertiary',
+};
+
 export const statusLabels: Record<LotStatus, string> = {
   open: 'Open',
-  filling: 'Filling',
-  busy: 'Busy',
+  filling: 'Filling Up',
+  busy: 'Almost Full',
   full: 'Full',
-  unknown: 'No Data',
+  unknown: 'Offline',
 };

@@ -9,7 +9,7 @@ const styles: Record<PermitType, { classes: string; label: string }> = {
 export default function PermitBadge({ type }: { type: PermitType }) {
   const s = styles[type];
   return (
-    <span className={`rounded px-2 py-0.5 text-xs font-medium ${s.classes}`}>
+    <span className={`whitespace-nowrap rounded-md px-1.5 py-0.5 text-[11px] font-medium ${s.classes}`}>
       {s.label}
     </span>
   );

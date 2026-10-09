@@ -14,7 +14,7 @@ export default function FillBar({ available, total, status, size = 'sm' }: FillB
   return (
     <div
       className={`w-full overflow-hidden rounded-full bg-surface-tertiary ${
-        size === 'sm' ? 'h-1.5' : 'h-2.5'
+        size === 'sm' ? 'h-1' : 'h-2'
       }`}
     >
       {status === 'unknown' ? (

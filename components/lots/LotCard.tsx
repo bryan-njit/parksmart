@@ -1,48 +1,67 @@
 import Link from 'next/link';
 import { Lot } from '@/types';
 import { formatAvailable, formatPct } from '@/lib/format';
-import { statusTextClass } from '@/lib/status';
+import { statusLabels, statusPillClass, statusTextClass } from '@/lib/status';
 import StatusDot from './StatusDot';
 import FillBar from './FillBar';
 import PermitBadge from './PermitBadge';
-import { AlertTriangle, Star } from 'lucide-react';
+import { MapPin, WifiOff } from 'lucide-react';
 
 interface LotCardProps {
   lot: Lot;
   size?: 'sm' | 'lg';
 }
 
+const cardClass =
+  'rounded-2xl border bg-surface shadow-card transition hover:border-njit-red/30 active:scale-[0.98]';
+
 export default function LotCard({ lot, size = 'sm' }: LotCardProps) {
   const isUnknown = lot.status === 'unknown';
 
   if (size === 'lg') {
+    // just the street part, e.g. "154 Summit Street"
+    const street = lot.address.split(',')[0];
+
     return (
-      <Link
-        href={`/lot/${lot.slug}`}
-        className="block rounded-xl border bg-surface p-5 shadow-card transition-shadow hover:shadow-card-hover"
-      >
-        <div className="mb-1 flex items-center gap-1.5">
-          <Star size={12} className="fill-njit-red text-njit-red" />
-          <p className="text-xs font-semibold uppercase tracking-wide text-njit-red">
-            Best lot right now
-          </p>
-        </div>
-        <div className="mb-4 flex items-end justify-between gap-3">
-          <h2 className="text-lg font-semibold leading-tight text-ink">{lot.name}</h2>
-          <div className="flex shrink-0 items-center gap-2">
-            <StatusDot status={lot.status} />
-            <span
-              className={`font-mono text-3xl font-bold leading-none tabular-nums ${statusTextClass[lot.status]}`}
+      <Link href={`/lot/${lot.slug}`} className={`relative block overflow-hidden p-5 ${cardClass}`}>
+        {/* thin red line across the top */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-njit-red to-transparent" />
+
+        <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-njit-red">
+          <span className="h-1.5 w-1.5 rounded-full bg-njit-red" />
+          Recommended
+        </p>
+
+        <div className="mb-5 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h2 className="text-lg font-bold leading-snug text-ink">{lot.name}</h2>
+            <p className="mt-1 flex items-center gap-1 text-xs text-ink-tertiary">
+              <MapPin size={12} />
+              {street}
+            </p>
+          </div>
+          <div className="shrink-0 text-right">
+            <p
+              className={`font-mono text-4xl font-bold leading-none tabular-nums ${statusTextClass[lot.status]}`}
             >
               {formatAvailable(lot.available)}
-            </span>
+            </p>
+            <p className="mt-1.5 text-[11px] uppercase tracking-wider text-ink-tertiary">
+              spots open
+            </p>
           </div>
         </div>
+
         <FillBar available={lot.available} total={lot.total} status={lot.status} size="lg" />
-        <div className="mt-2.5 flex items-center justify-between">
-          <span className="text-sm text-ink-secondary">
-            {formatPct(lot.available, lot.total)} open · {lot.total.toLocaleString()} total spots
-          </span>
+
+        <div className="mt-3 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs">
+            <StatusDot status={lot.status} />
+            <span className={`font-semibold ${statusTextClass[lot.status]}`}>
+              {statusLabels[lot.status]}
+            </span>
+            <span className="text-ink-tertiary">· {formatPct(lot.available, lot.total)} available</span>
+          </div>
           <PermitBadge type={lot.type} />
         </div>
       </Link>
@@ -50,38 +69,45 @@ export default function LotCard({ lot, size = 'sm' }: LotCardProps) {
   }
 
   return (
-    <Link
-      href={`/lot/${lot.slug}`}
-      className="flex min-h-[124px] flex-col rounded-xl border bg-surface p-3.5 shadow-card transition-shadow hover:shadow-card-hover"
-    >
-      <p className="line-clamp-1 text-sm font-medium leading-tight text-ink">{lot.name}</p>
+    <Link href={`/lot/${lot.slug}`} className={`flex flex-col p-4 ${cardClass}`}>
+      <p
+        className={`line-clamp-2 min-h-[2.5rem] text-sm font-medium leading-tight ${
+          isUnknown ? 'text-ink-tertiary' : 'text-ink'
+        }`}
+      >
+        {lot.name}
+      </p>
 
-      <div className="mt-2.5 flex flex-1 items-center gap-1.5">
-        {isUnknown ? (
-          <>
-            <AlertTriangle size={15} className="text-ink-tertiary" />
-            <span className="text-sm font-medium text-ink-tertiary">No data</span>
-          </>
-        ) : (
-          <>
-            <StatusDot status={lot.status} />
-            <span
-              className={`font-mono text-xl font-bold leading-none tabular-nums ${statusTextClass[lot.status]}`}
-            >
-              {formatAvailable(lot.available)}
-            </span>
-          </>
-        )}
-      </div>
-
-      <div className="mt-2.5">
-        <FillBar available={lot.available} total={lot.total} status={lot.status} />
-        <div className="mt-2 flex items-center justify-between">
-          <span className="text-xs text-ink-secondary">
-            {isUnknown ? 'Unavailable' : `${formatPct(lot.available, lot.total)} open`}
-          </span>
-          <PermitBadge type={lot.type} />
+      {isUnknown ? (
+        <div className="my-3 flex h-8 items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-tertiary">
+            <WifiOff size={14} className="text-ink-tertiary" />
+          </div>
+          <span className="text-sm font-medium text-ink-secondary">Offline</span>
         </div>
+      ) : (
+        <div className="my-3 flex h-8 items-center gap-2">
+          <StatusDot status={lot.status} />
+          <span
+            className={`font-mono text-2xl font-bold leading-none tabular-nums ${statusTextClass[lot.status]}`}
+          >
+            {formatAvailable(lot.available)}
+          </span>
+          <span
+            className={`ml-auto whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-semibold ${statusPillClass[lot.status]}`}
+          >
+            {statusLabels[lot.status]}
+          </span>
+        </div>
+      )}
+
+      <FillBar available={lot.available} total={lot.total} status={lot.status} />
+
+      <div className="mt-2.5 flex items-center justify-between gap-2">
+        <span className="text-xs text-ink-tertiary">
+          {isUnknown ? 'No data' : `${formatPct(lot.available, lot.total)} open`}
+        </span>
+        <PermitBadge type={lot.type} />
       </div>
     </Link>
   );
