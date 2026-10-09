@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
-import { SIMULATED_LOTS } from '@/data/simulated';
+import { useParkingData } from '@/hooks/useParkingData';
 
 // leaflet touches window, so it can't render on the server
 const ParkingMap = dynamic(() => import('@/components/map/ParkingMap'), {
@@ -16,12 +16,14 @@ const ParkingMap = dynamic(() => import('@/components/map/ParkingMap'), {
 });
 
 export default function MapPage() {
+  const { lots } = useParkingData();
+
   return (
     <AppShell>
       <Header title="Campus Map" />
       {/* dvh instead of vh so the map doesn't hide under the browser bar on iPhones */}
       <div className="h-[calc(100dvh-3.5rem-5rem)]">
-        <ParkingMap lots={SIMULATED_LOTS} />
+        <ParkingMap lots={lots} />
       </div>
     </AppShell>
   );

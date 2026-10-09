@@ -5,7 +5,6 @@ import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 import LotCard from '@/components/lots/LotCard';
 import PollIndicator from '@/components/lots/PollIndicator';
-import { SIMULATED_LOTS } from '@/data/simulated';
 import { useParkingData } from '@/hooks/useParkingData';
 import { BUILDINGS, CAMPUS_CENTER, Point, distanceMeters, walkMinutes } from '@/lib/buildings';
 import { Lot } from '@/types';
@@ -27,7 +26,7 @@ function chipClass(selected: boolean) {
 }
 
 export default function DashboardPage() {
-  const { lots, lastUpdated } = useParkingData(SIMULATED_LOTS);
+  const { lots, lastUpdated } = useParkingData();
 
   // a building id, 'me' for the user's location, or null for no destination
   const [destinationId, setDestinationId] = useState<string | null>(null);

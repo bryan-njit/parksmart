@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Lot } from '@/types';
 import { getStatus } from '@/lib/status';
+import { SIMULATED_LOTS } from '@/data/simulated';
 
 const TICK_MS = 30 * 1000;
 
@@ -20,8 +21,16 @@ function drift(lot: Lot): Lot {
   return { ...lot, occupied, available, status: getStatus(available, lot.total) };
 }
 
-export function useParkingData(initial: Lot[]) {
-  const [lots, setLots] = useState(initial);
+interface ParkingData {
+  lots: Lot[];
+  lastUpdated: number;
+}
+
+// one copy of the lot numbers for the whole app, so every page shows the same thing
+const ParkingDataContext = createContext<ParkingData | null>(null);
+
+export function ParkingDataProvider({ children }: { children: React.ReactNode }) {
+  const [lots, setLots] = useState(SIMULATED_LOTS);
   const [lastUpdated, setLastUpdated] = useState(() => Date.now());
 
   useEffect(() => {
@@ -32,5 +41,15 @@ export function useParkingData(initial: Lot[]) {
     return () => clearInterval(id);
   }, []);
 
-  return { lots, lastUpdated };
+  return (
+    <ParkingDataContext.Provider value={{ lots, lastUpdated }}>
+      {children}
+    </ParkingDataContext.Provider>
+  );
+}
+
+export function useParkingData() {
+  const data = useContext(ParkingDataContext);
+  if (!data) throw new Error('useParkingData has to be used inside ParkingDataProvider');
+  return data;
 }

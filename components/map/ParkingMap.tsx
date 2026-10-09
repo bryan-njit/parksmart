@@ -71,7 +71,9 @@ function popupHtml(group: Lot[]): string {
 export default function ParkingMap({ lots }: ParkingMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const markersRef = useRef<L.Marker[]>([]);
 
+  // build the map once
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
@@ -88,7 +90,20 @@ export default function ParkingMap({ lots }: ParkingMapProps) {
       maxZoom: 19,
     }).addTo(map);
 
-    groupBySpot(lots).forEach((group) => {
+    return () => {
+      map.remove();
+      mapRef.current = null;
+      markersRef.current = [];
+    };
+  }, []);
+
+  // when the numbers change, update the markers in place so the map
+  // doesn't lose its zoom or close an open popup
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    groupBySpot(lots).forEach((group, i) => {
       const icon = L.divIcon({
         html: markerHtml(group),
         className: '', // prevent default leaflet icon styles
@@ -96,15 +111,16 @@ export default function ParkingMap({ lots }: ParkingMapProps) {
         iconAnchor: [17, 17],
       });
 
-      L.marker([group[0].lat, group[0].lng], { icon })
-        .addTo(map)
-        .bindPopup(popupHtml(group));
+      const marker = markersRef.current[i];
+      if (marker) {
+        marker.setIcon(icon);
+        marker.setPopupContent(popupHtml(group));
+      } else {
+        markersRef.current[i] = L.marker([group[0].lat, group[0].lng], { icon })
+          .addTo(map)
+          .bindPopup(popupHtml(group));
+      }
     });
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
   }, [lots]);
 
   return <div ref={containerRef} className="h-full w-full" />;

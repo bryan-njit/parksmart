@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { ParkingDataProvider } from '@/hooks/useParkingData';
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${jetbrains.variable} font-sans`}>
-        {children}
+        <ParkingDataProvider>{children}</ParkingDataProvider>
       </body>
     </html>
   );

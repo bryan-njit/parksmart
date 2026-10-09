@@ -1,10 +1,13 @@
+'use client';
+
 import { notFound } from 'next/navigation';
 import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 import FillBar from '@/components/lots/FillBar';
 import PermitBadge from '@/components/lots/PermitBadge';
 import OccupancyChart from '@/components/charts/OccupancyChart';
-import { SIMULATED_LOTS, SIMULATED_HISTORY } from '@/data/simulated';
+import { SIMULATED_HISTORY } from '@/data/simulated';
+import { useParkingData } from '@/hooks/useParkingData';
 import { formatAvailable, formatPct } from '@/lib/format';
 import { statusColors, statusTextClass } from '@/lib/status';
 import { BUILDINGS, walkMinutes } from '@/lib/buildings';
@@ -15,7 +18,8 @@ interface Props {
 }
 
 export default function LotDetailPage({ params }: Props) {
-  const lot = SIMULATED_LOTS.find((l) => l.slug === params.slug);
+  const { lots } = useParkingData();
+  const lot = lots.find((l) => l.slug === params.slug);
   if (!lot) notFound();
 
   const history = SIMULATED_HISTORY.find((h) => h.lotId === lot.slug);
