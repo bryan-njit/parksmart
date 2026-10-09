@@ -11,8 +11,8 @@ interface ParkingMapProps {
   lots: Lot[];
 }
 
-// campus center, roughly between the deck and Fenster
-const CAMPUS_CENTER: [number, number] = [40.7416, -74.1768];
+// middle of all the lots, so every marker fits on a phone screen
+const CAMPUS_CENTER: [number, number] = [40.7424, -74.1797];
 
 function markerHtml(lot: Lot): string {
   const color = statusColors[lot.status];

@@ -8,11 +8,12 @@ interface LotMeta {
   walkingDistances: Record<string, string>;
 }
 
+// lat/lng looked up on OpenStreetMap from each lot's street address (ECC is approximate)
 export const LOT_METADATA: Record<string, LotMeta> = {
   PARK: {
     slug: 'parking-deck',
-    lat: 40.7425,
-    lng: -74.1795,
+    lat: 40.7402,
+    lng: -74.1784,
     permits: ['Commuter (Red)', 'Blue', 'Green'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'Free after 4:00pm Fridays, all day weekends',
@@ -20,8 +21,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   'Science & Tech Garage': {
     slug: 'science-tech-garage',
-    lat: 40.7399,
-    lng: -74.1762,
+    lat: 40.7433,
+    lng: -74.1823,
     permits: ['Commuter (Red)', 'Blue'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'Free after 4:00pm Fridays, all day weekends',
@@ -29,8 +30,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   'Lot 16': {
     slug: 'lot-16',
-    lat: 40.7414,
-    lng: -74.1771,
+    lat: 40.7439,
+    lng: -74.1819,
     permits: ['Commuter (Red)', 'Blue', 'Green'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'Free after 4:00pm Fridays, all day weekends',
@@ -38,8 +39,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   ECC: {
     slug: 'ecc-deck',
-    lat: 40.7432,
-    lng: -74.1742,
+    lat: 40.7395,
+    lng: -74.1790,
     permits: ['Commuter (Red)', 'Blue'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'Free after 4:00pm Fridays, all day weekends',
@@ -47,8 +48,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   'Lot 10': {
     slug: 'lot-10',
-    lat: 40.7408,
-    lng: -74.1755,
+    lat: 40.7454,
+    lng: -74.1796,
     permits: ['Commuter (Red)'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'Free after 4:00pm Fridays, all day weekends',
@@ -56,8 +57,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   FENS1: {
     slug: 'fenster-l1',
-    lat: 40.7421,
-    lng: -74.1768,
+    lat: 40.7424,
+    lng: -74.1773,
     permits: ['Reserved'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'No free parking',
@@ -65,8 +66,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   FENS2: {
     slug: 'fenster-l2',
-    lat: 40.7419,
-    lng: -74.1766,
+    lat: 40.7424,
+    lng: -74.1771,
     permits: ['Faculty/Staff'],
     enforcementHours: 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: 'No free parking',

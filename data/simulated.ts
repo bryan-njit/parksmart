@@ -49,8 +49,9 @@ const rawLots = [
   {
     siteName: 'Lot 10',
     name: 'Parking Lot #10',
-    address: '46 Wilsey Street, Newark, NJ 07103',
-    addressURL: 'http://maps.google.com/?q=46+Wilsey+Street,+Newark,+NJ+07103',
+    // the real API overrides Lot 10's address to Lock Street
+    address: '27 Lock Street, Newark, NJ 07103',
+    addressURL: 'http://maps.google.com/?q=27+Lock+Street,+Newark,+NJ+07103',
     // API returns "Not Avaiable" (their typo) — treated as unknown
     available: null,
     occupied: 169,

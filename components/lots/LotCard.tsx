@@ -5,17 +5,19 @@ import { statusLabels, statusPillClass, statusTextClass } from '@/lib/status';
 import StatusDot from './StatusDot';
 import FillBar from './FillBar';
 import PermitBadge from './PermitBadge';
-import { MapPin, WifiOff } from 'lucide-react';
+import { Footprints, MapPin, WifiOff } from 'lucide-react';
 
 interface LotCardProps {
   lot: Lot;
   size?: 'sm' | 'lg';
+  label?: string;
+  walkMinutes?: number;
 }
 
 const cardClass =
   'rounded-2xl border bg-surface shadow-card transition hover:border-njit-red/30 active:scale-[0.98]';
 
-export default function LotCard({ lot, size = 'sm' }: LotCardProps) {
+export default function LotCard({ lot, size = 'sm', label = 'Recommended', walkMinutes }: LotCardProps) {
   const isUnknown = lot.status === 'unknown';
 
   if (size === 'lg') {
@@ -29,7 +31,7 @@ export default function LotCard({ lot, size = 'sm' }: LotCardProps) {
 
         <p className="mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-njit-red">
           <span className="h-1.5 w-1.5 rounded-full bg-njit-red" />
-          Recommended
+          {label}
         </p>
 
         <div className="mb-5 flex items-start justify-between gap-3">
@@ -39,6 +41,12 @@ export default function LotCard({ lot, size = 'sm' }: LotCardProps) {
               <MapPin size={12} />
               {street}
             </p>
+            {walkMinutes !== undefined && (
+              <p className="mt-1 flex items-center gap-1 text-xs text-ink-secondary">
+                <Footprints size={12} />
+                {walkMinutes} min walk
+              </p>
+            )}
           </div>
           <div className="shrink-0 text-right">
             <p
@@ -104,9 +112,16 @@ export default function LotCard({ lot, size = 'sm' }: LotCardProps) {
       <FillBar available={lot.available} total={lot.total} status={lot.status} />
 
       <div className="mt-2.5 flex items-center justify-between gap-2">
-        <span className="text-xs text-ink-tertiary">
-          {isUnknown ? 'No data' : `${formatPct(lot.available, lot.total)} open`}
-        </span>
+        {walkMinutes !== undefined ? (
+          <span className="flex items-center gap-1 whitespace-nowrap text-xs text-ink-secondary">
+            <Footprints size={12} />
+            {walkMinutes} min
+          </span>
+        ) : (
+          <span className="text-xs text-ink-tertiary">
+            {isUnknown ? 'No data' : `${formatPct(lot.available, lot.total)} open`}
+          </span>
+        )}
         <PermitBadge type={lot.type} />
       </div>
     </Link>
