@@ -8,14 +8,6 @@ export function formatPct(available: number | null, total: number): string {
   return `${Math.round((available / total) * 100)}%`;
 }
 
-export function timeAgo(timestamp: number): string {
-  const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  if (seconds < 60) return `${seconds} sec ago`;
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} min ago`;
-  return `${Math.floor(minutes / 60)} hr ago`;
-}
-
 export function parseAvailable(raw: string): number | null {
   const n = parseInt(raw, 10);
   return isNaN(n) ? null : n;

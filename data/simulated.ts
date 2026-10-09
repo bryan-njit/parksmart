@@ -1,4 +1,4 @@
-import { Lot, LotHistoricalData, Report, Alert } from '@/types';
+import { Lot, LotHistoricalData } from '@/types';
 import { getStatus } from '@/lib/status';
 import { LOT_METADATA } from '@/lib/lots';
 
@@ -161,42 +161,5 @@ export const SIMULATED_HISTORY: LotHistoricalData[] = [
   {
     lotId: 'lot-16',
     data: TIME_KEYS.map((time, i) => ({ time, occupied: LOT16_OCCUPIED[i] ?? 0 })),
-  },
-];
-
-export const SIMULATED_REPORTS: Report[] = [
-  {
-    id: 'r1',
-    lotId: 'parking-deck',
-    lotName: 'Parking Deck',
-    type: 'open',
-    note: 'Spots open on level 3',
-    createdAt: Date.now() - 8 * 60 * 1000,
-    expiresAt: Date.now() + 22 * 60 * 1000,
-  },
-  {
-    id: 'r2',
-    lotId: 'lot-16',
-    lotName: 'Parking Lot #16',
-    type: 'open',
-    createdAt: Date.now() - 14 * 60 * 1000,
-    expiresAt: Date.now() + 16 * 60 * 1000,
-  },
-];
-
-export const SIMULATED_ALERTS: Alert[] = [
-  {
-    id: 'a1',
-    severity: 'warning',
-    title: 'ECC Deck — Sensor Error',
-    subtitle: 'Sensor malfunction detected. Availability data may be inaccurate.',
-    lotId: 'ecc-deck',
-  },
-  {
-    id: 'a2',
-    severity: 'warning',
-    title: 'Lot 10 — Data Unavailable',
-    subtitle: 'Live availability data is not reporting for this lot.',
-    lotId: 'lot-10',
   },
 ];

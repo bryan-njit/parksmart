@@ -5,8 +5,7 @@ import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 import LotCard from '@/components/lots/LotCard';
 import PollIndicator from '@/components/lots/PollIndicator';
-import AlertBanner from '@/components/alerts/AlertBanner';
-import { SIMULATED_LOTS, SIMULATED_ALERTS } from '@/data/simulated';
+import { SIMULATED_LOTS } from '@/data/simulated';
 import { useParkingData } from '@/hooks/useParkingData';
 import { BUILDINGS, CAMPUS_CENTER, Point, distanceMeters, walkMinutes } from '@/lib/buildings';
 import { Lot } from '@/types';
@@ -110,16 +109,9 @@ export default function DashboardPage() {
   if (destinationId === 'me') bestLabel = 'Closest to you';
   else if (building) bestLabel = `Closest to ${building.name}`;
 
-  const dangerAlerts = SIMULATED_ALERTS.filter((a) => a.severity === 'danger');
-  const otherAlerts = SIMULATED_ALERTS.filter((a) => a.severity !== 'danger');
-
   return (
     <AppShell>
       <Header title="ParkSmart" brand showSettings showRefresh />
-
-      {dangerAlerts.map((alert) => (
-        <AlertBanner key={alert.id} alert={alert} />
-      ))}
 
       <div className="space-y-6 px-4 pb-2 pt-5">
         <section>
@@ -168,19 +160,6 @@ export default function DashboardPage() {
             ))}
           </div>
         </section>
-
-        {otherAlerts.length > 0 && (
-          <section>
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-ink-tertiary">
-              Notices
-            </h2>
-            <div className="divide-y overflow-hidden rounded-xl border">
-              {otherAlerts.map((alert) => (
-                <AlertBanner key={alert.id} alert={alert} />
-              ))}
-            </div>
-          </section>
-        )}
       </div>
 
       <div className="flex justify-center pb-2">

@@ -31,26 +31,6 @@ export interface LotHistoricalData {
   data: HistoricalDataPoint[];
 }
 
-export interface Report {
-  id: string;
-  lotId: string;
-  lotName: string;
-  type: 'full' | 'open' | 'event' | 'other';
-  note?: string;
-  createdAt: number;
-  expiresAt: number;
-}
-
-export interface Alert {
-  id: string;
-  severity: 'danger' | 'warning' | 'info';
-  title: string;
-  subtitle: string;
-  lotId?: string;
-  startsAt?: string;
-  endsAt?: string;
-}
-
 export type UserPermit =
   | 'Commuter (Red)'
   | 'Blue'
