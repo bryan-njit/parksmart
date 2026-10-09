@@ -22,7 +22,7 @@ export default function MapPage() {
     <AppShell>
       <Header title="Campus Map" />
       {/* dvh instead of vh so the map doesn't hide under the browser bar on iPhones */}
-      <div className="h-[calc(100dvh-3.5rem-5rem)]">
+      <div className="h-[calc(100dvh-3.5rem-5rem-env(safe-area-inset-bottom))]">
         <ParkingMap lots={lots} />
       </div>
     </AppShell>
