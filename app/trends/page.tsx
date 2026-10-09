@@ -102,7 +102,7 @@ export default function TrendsPage() {
               )}
               {peak && (
                 <div className="flex items-start gap-2.5">
-                  <Clock size={15} className="mt-0.5 text-blue-600" />
+                  <Clock size={15} className="mt-0.5 text-blue-400" />
                   <p className="text-sm text-ink-secondary">
                     Arrive before <strong>8:30 am</strong> for a guaranteed spot
                   </p>

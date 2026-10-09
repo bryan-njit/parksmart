@@ -26,7 +26,7 @@ export default function Header({
         {showBack && (
           <Link
             href="/"
-            className="-ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-slate-100"
+            className="-ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
           >
             <ChevronLeft size={20} className="text-ink-secondary" />
           </Link>
@@ -46,20 +46,20 @@ export default function Header({
             href={directionsURL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-slate-100"
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
           >
             <MapPin size={18} className="text-ink-secondary" />
           </a>
         )}
         {showRefresh && (
-          <button className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-slate-100">
+          <button className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary">
             <RefreshCw size={18} className="text-ink-secondary" />
           </button>
         )}
         {showSettings && (
           <Link
             href="/settings"
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-slate-100"
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
           >
             <Settings size={18} className="text-ink-secondary" />
           </Link>

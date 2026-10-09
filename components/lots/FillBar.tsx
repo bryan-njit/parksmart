@@ -22,7 +22,7 @@ export default function FillBar({ available, total, status, size = 'sm' }: FillB
           className="h-full w-full rounded-full"
           style={{
             background:
-              'repeating-linear-gradient(90deg, #e2e8f0 0px, #e2e8f0 6px, transparent 6px, transparent 12px)',
+              'repeating-linear-gradient(90deg, rgba(255,255,255,0.12) 0px, rgba(255,255,255,0.12) 6px, transparent 6px, transparent 12px)',
           }}
         />
       ) : (

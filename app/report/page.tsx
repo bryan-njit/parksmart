@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 import { SIMULATED_LOTS, SIMULATED_REPORTS } from '@/data/simulated';
@@ -19,6 +19,11 @@ export default function ReportPage() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  // the time-left bars depend on Date.now(), which is different on the
+  // server and in the browser, so only draw them after the page loads
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   function handleSubmit() {
     if (!selectedType) return;
     setSubmitted(true);
@@ -34,7 +39,7 @@ export default function ReportPage() {
 
       <div className="space-y-5 px-4 pt-4">
         {submitted && (
-          <div className="flex items-center gap-2 rounded-xl bg-status-open-bg px-4 py-3 text-green-700">
+          <div className="flex items-center gap-2 rounded-xl bg-status-open-bg px-4 py-3 text-status-open">
             <CheckCircle size={16} />
             <span className="text-sm font-medium">Thanks! Report visible for 30 min.</span>
           </div>
@@ -88,7 +93,7 @@ export default function ReportPage() {
         </button>
 
         {/* Recent reports */}
-        {SIMULATED_REPORTS.length > 0 && (
+        {mounted && SIMULATED_REPORTS.length > 0 && (
           <div>
             <p className="mb-2 text-sm font-semibold text-ink">Recent Reports</p>
             <div className="divide-y overflow-hidden rounded-xl border">

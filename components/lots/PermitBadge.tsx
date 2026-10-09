@@ -1,9 +1,9 @@
 import { PermitType } from '@/types';
 
 const styles: Record<PermitType, { classes: string; label: string }> = {
-  general: { classes: 'bg-slate-100 text-slate-600', label: 'General' },
-  reserved: { classes: 'bg-red-50 text-red-700', label: 'Reserved' },
-  facstaff: { classes: 'bg-violet-50 text-violet-700', label: 'Faculty/Staff' },
+  general: { classes: 'bg-surface-tertiary text-ink-secondary', label: 'General' },
+  reserved: { classes: 'bg-rose-500/10 text-rose-300', label: 'Reserved' },
+  facstaff: { classes: 'bg-violet-500/10 text-violet-300', label: 'Faculty/Staff' },
 };
 
 export default function PermitBadge({ type }: { type: PermitType }) {

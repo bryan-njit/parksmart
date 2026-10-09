@@ -13,9 +13,9 @@ const config = {
     iconClass: 'text-status-filling',
   },
   info: {
-    classes: 'bg-blue-50 border-blue-600',
+    classes: 'bg-blue-500/10 border-blue-400',
     icon: Info,
-    iconClass: 'text-blue-600',
+    iconClass: 'text-blue-400',
   },
 };
 

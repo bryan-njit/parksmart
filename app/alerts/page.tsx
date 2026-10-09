@@ -8,13 +8,13 @@ const severityOrder = { danger: 0, warning: 1, info: 2 } as const;
 const severityStyles = {
   danger: 'border-l-status-full bg-status-full-bg',
   warning: 'border-l-status-filling bg-status-filling-bg',
-  info: 'border-l-blue-600 bg-blue-50',
+  info: 'border-l-blue-400 bg-blue-500/10',
 };
 
 const dotStyles = {
   danger: 'bg-status-full',
   warning: 'bg-status-filling',
-  info: 'bg-blue-600',
+  info: 'bg-blue-400',
 };
 
 export default function AlertsPage() {
