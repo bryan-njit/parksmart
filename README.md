@@ -1,30 +1,19 @@
 # ParkSmart
 
-ParkSmart is a parking app for NJIT. It shows how many open spots each campus parking lot has, so you can pick a lot before you get there.
+ParkSmart is a parking app for NJIT students that helps them find available parking on campus. It shows parking availability across campus lots so students can decide where to park before arriving.
 
-Live demo: https://parksmart-five.vercel.app
+Live Demo: https://parksmart-five.vercel.app
 
-**Note:** The parking numbers right now are demo data, not real numbers from NJIT. This is not an official NJIT app.
+**Note:** Parking availability currently uses demo data and does not reflect real-time NJIT parking information. ParkSmart is not affiliated with or officially supported by NJIT.
 
-## What you can do
+## Features
 
-- See open spots for every lot on campus
-- Pick the building you're going to (like GITC or CKB) and see which lot is the shortest walk away
-- Use your location to find the closest lot when you're on campus
-- See all the lots on a map
-- Tap a lot to see how busy it usually gets during the day and which buildings are nearby
+- View available parking spots across NJIT campus lots.
+- Select a campus building (such as GITC or CKB) to find the closest parking lot by walking distance.
+- Use your current location to find nearby parking lots.
+- View campus parking lots on an interactive map.
+- Check typical parking activity throughout the day and see nearby campus buildings.
 
-## Run it yourself
+## Project Status
 
-You need [Node.js](https://nodejs.org) installed.
-
-```bash
-npm install
-npm run dev
-```
-
-Then open http://localhost:3000.
-
-## Built with
-
-Next.js, Tailwind CSS, Leaflet (map) and Recharts (charts).
+ParkSmart is currently in development. Future updates will focus on improving the user experience, adding new features, and eventually bringing the app to iOS.
