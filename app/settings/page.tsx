@@ -58,7 +58,7 @@ export default function SettingsPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-ink-secondary">Data source</span>
-              <span className="text-sm font-medium text-ink">NJIT Facilities</span>
+              <span className="text-sm font-medium text-ink">Simulated demo data</span>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function SettingsPage() {
           <div className="space-y-1">
             <div className="flex justify-between">
               <span className="text-sm text-ink-secondary">Version</span>
-              <span className="text-sm font-medium text-ink">1.0.0</span>
+              <span className="text-sm font-medium text-ink">0.1.0</span>
             </div>
             <div className="flex justify-between">
               <span className="text-sm text-ink-secondary">Built by</span>
@@ -81,7 +81,7 @@ export default function SettingsPage() {
             </div>
           </div>
           <p className="mt-4 text-xs text-ink-tertiary">
-            Not an official NJIT application. Data sourced from NJIT Facilities APIs.
+            Not an official NJIT app. Demo data only — parking numbers are simulated.
           </p>
         </div>
       </div>

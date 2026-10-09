@@ -15,7 +15,7 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'ParkSmart — NJIT Parking',
-  description: 'Real-time parking availability for NJIT students, faculty, and staff.',
+  description: 'A parking availability demo for NJIT students, faculty, and staff.',
 };
 
 export const viewport: Viewport = {

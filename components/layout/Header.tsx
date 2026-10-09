@@ -32,9 +32,15 @@ export default function Header({
           </Link>
         )}
         {brand ? (
-          <h1 className="truncate text-lg font-bold tracking-tight text-ink">
-            Park<span className="text-njit-red">Smart</span>
-          </h1>
+          <>
+            <h1 className="truncate text-lg font-bold tracking-tight text-ink">
+              Park<span className="text-njit-red">Smart</span>
+            </h1>
+            {/* all numbers are simulated until NJIT shares real data */}
+            <span className="rounded-md bg-surface-tertiary px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink-secondary">
+              Demo data
+            </span>
+          </>
         ) : (
           <h1 className="truncate text-base font-semibold text-ink">{title}</h1>
         )}
