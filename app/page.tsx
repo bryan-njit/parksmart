@@ -96,14 +96,14 @@ export default function DashboardPage() {
     ? [...lots].sort((a, b) => (walkTo(a) ?? 0) - (walkTo(b) ?? 0))
     : lots;
 
-  // only suggest general lots, since reserved and faculty lots aren't open to everyone
+  // only suggest regular lots, since faculty/staff lots aren't open to everyone
   const lotsWithSpots = sortedLots.filter(hasSpots);
-  const generalLots = lotsWithSpots.filter((lot) => lot.type === 'general');
+  const regularLots = lotsWithSpots.filter((lot) => lot.type === 'regular');
 
-  // closest general lot with spots, or the one with the most spots if no destination
+  // closest regular lot with spots, or the one with the most spots if no destination
   const bestLot = destination
-    ? generalLots[0]
-    : [...generalLots].sort((a, b) => (b.available ?? 0) - (a.available ?? 0))[0];
+    ? regularLots[0]
+    : [...regularLots].sort((a, b) => (b.available ?? 0) - (a.available ?? 0))[0];
 
   let bestLabel = 'Recommended';
   if (destinationId === 'me') bestLabel = 'Closest to you';

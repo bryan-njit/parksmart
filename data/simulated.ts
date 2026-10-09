@@ -13,7 +13,7 @@ const rawLots = [
     available: 1491,
     occupied: 194,
     total: 1685,
-    type: 'general' as const,
+    type: 'regular' as const,
   },
   {
     siteName: 'Science & Tech Garage',
@@ -23,7 +23,7 @@ const rawLots = [
     available: 735,
     occupied: 187,
     total: 922,
-    type: 'general' as const,
+    type: 'regular' as const,
   },
   {
     siteName: 'Lot 16',
@@ -33,7 +33,7 @@ const rawLots = [
     available: 167,
     occupied: 15,
     total: 182,
-    type: 'general' as const,
+    type: 'regular' as const,
   },
   {
     siteName: 'ECC',
@@ -44,7 +44,7 @@ const rawLots = [
     available: null,
     occupied: -60,
     total: 100,
-    type: 'general' as const,
+    type: 'regular' as const,
   },
   {
     siteName: 'Lot 10',
@@ -56,7 +56,7 @@ const rawLots = [
     available: null,
     occupied: 169,
     total: 37,
-    type: 'general' as const,
+    type: 'regular' as const,
   },
   {
     siteName: 'FENS1',
@@ -66,7 +66,7 @@ const rawLots = [
     available: 26,
     occupied: 16,
     total: 42,
-    type: 'reserved' as const,
+    type: 'facstaff' as const, // NJIT's data says "reserved", but it's a faculty/staff lot
   },
   {
     siteName: 'FENS2',

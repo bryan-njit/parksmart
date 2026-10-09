@@ -1,6 +1,6 @@
 export type LotStatus = 'open' | 'filling' | 'busy' | 'full' | 'unknown';
 
-export type PermitType = 'general' | 'reserved' | 'facstaff';
+export type PermitType = 'regular' | 'facstaff';
 
 export interface Lot {
   id: string;
