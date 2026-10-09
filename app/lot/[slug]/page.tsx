@@ -8,7 +8,7 @@ import { SIMULATED_LOTS, SIMULATED_HISTORY } from '@/data/simulated';
 import { formatAvailable, formatPct } from '@/lib/format';
 import { statusColors, statusTextClass } from '@/lib/status';
 import { BUILDINGS, walkMinutes } from '@/lib/buildings';
-import { Shield, Clock, MapPin } from 'lucide-react';
+import { Clock, MapPin } from 'lucide-react';
 
 interface Props {
   params: { slug: string };
@@ -28,7 +28,7 @@ export default function LotDetailPage({ params }: Props) {
 
   return (
     <AppShell>
-      <Header title={lot.name} showBack showDirections directionsURL={lot.addressURL} />
+      <Header title={lot.name} showBack />
 
       <div className="space-y-6 px-4 pb-2 pt-6">
         {/* Hero number */}
@@ -43,38 +43,17 @@ export default function LotDetailPage({ params }: Props) {
               {lot.available !== null ? lot.available.toLocaleString() : '—'} of{' '}
               {lot.total.toLocaleString()} · {formatPct(lot.available, lot.total)} open
             </p>
+            <div className="mt-3">
+              <PermitBadge type={lot.type} />
+            </div>
           </div>
-        </div>
-
-        {/* Permit info */}
-        <div className="space-y-2 rounded-xl border bg-surface-secondary p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <Shield size={16} className="text-njit-red" />
-            <span className="text-sm font-semibold text-ink">Permit Info</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {lot.permits.map((p) => (
-              <span
-                key={p}
-                className="rounded-full bg-surface-tertiary px-2 py-1 text-xs text-ink-secondary"
-              >
-                {p}
-              </span>
-            ))}
-            <PermitBadge type={lot.type} />
-          </div>
-          <div className="flex items-center gap-2 pt-1">
-            <Clock size={14} className="text-ink-tertiary" />
-            <span className="text-xs text-ink-secondary">{lot.enforcementHours}</span>
-          </div>
-          {lot.freeAfter && <p className="text-xs text-ink-secondary">{lot.freeAfter}</p>}
         </div>
 
         {/* Historical chart */}
         {history && (
           <div className="rounded-xl border bg-surface p-4">
-            <p className="mb-4 text-sm font-semibold text-ink">Today&apos;s Typical Pattern</p>
-            <OccupancyChart data={history.data} total={lot.total} color={statusColors[lot.status]} />
+            <p className="mb-4 text-sm font-semibold text-ink">Typical Day</p>
+            <OccupancyChart data={history.data} color={statusColors[lot.status]} />
             {peakPoint && (
               <div className="mt-3 flex items-center gap-2 rounded-lg bg-status-filling-bg px-3 py-2">
                 <Clock size={14} className="text-status-filling" />

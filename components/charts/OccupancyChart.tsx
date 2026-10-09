@@ -7,29 +7,20 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  ReferenceLine,
 } from 'recharts';
 import { HistoricalDataPoint } from '@/types';
 
 interface OccupancyChartProps {
   data: HistoricalDataPoint[];
-  total: number;
-  color?: string;
-  height?: number;
-  currentTime?: string;
+  color: string;
 }
 
 // only label every 3 hours so the axis doesn't get crowded on a phone
 const HOUR_TICKS = ['8 am', '11 am', '2 pm', '5 pm', '8 pm'];
 
-export default function OccupancyChart({
-  data,
-  color = '#E8364A',
-  height = 200,
-  currentTime,
-}: OccupancyChartProps) {
+export default function OccupancyChart({ data, color }: OccupancyChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={height}>
+    <ResponsiveContainer width="100%" height={200}>
       <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
         <defs>
           <linearGradient id="occupancyGrad" x1="0" y1="0" x2="0" y2="1">
@@ -62,14 +53,6 @@ export default function OccupancyChart({
           labelStyle={{ color: '#EDEEF0', fontWeight: 600, marginBottom: 2 }}
           formatter={(value) => [`${value} occupied`]}
         />
-        {currentTime && (
-          <ReferenceLine
-            x={currentTime}
-            stroke="#E8364A"
-            strokeDasharray="4 3"
-            strokeWidth={1.5}
-          />
-        )}
         <Area
           type="monotone"
           dataKey="occupied"

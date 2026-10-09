@@ -97,9 +97,6 @@ export const SIMULATED_LOTS: Lot[] = rawLots.map((raw, i) => {
     type: raw.type,
     lat: meta?.lat ?? 40.742,
     lng: meta?.lng ?? -74.178,
-    permits: meta?.permits ?? [],
-    enforcementHours: meta?.enforcementHours ?? 'Mon–Fri 7:00am – 10:00pm',
-    freeAfter: meta?.freeAfter ?? '',
   };
 });
 

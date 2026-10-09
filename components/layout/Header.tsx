@@ -1,24 +1,18 @@
 import Link from 'next/link';
-import { Settings, RefreshCw, ChevronLeft, MapPin } from 'lucide-react';
+import { Info, ChevronLeft } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
   brand?: boolean;
   showBack?: boolean;
-  showRefresh?: boolean;
-  showSettings?: boolean;
-  showDirections?: boolean;
-  directionsURL?: string;
+  showAbout?: boolean;
 }
 
 export default function Header({
   title,
   brand = false,
   showBack = false,
-  showRefresh = false,
-  showSettings = false,
-  showDirections = false,
-  directionsURL,
+  showAbout = false,
 }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center border-b bg-surface px-4 shadow-card">
@@ -26,6 +20,7 @@ export default function Header({
         {showBack && (
           <Link
             href="/"
+            aria-label="Back"
             className="-ml-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
           >
             <ChevronLeft size={20} className="text-ink-secondary" />
@@ -46,31 +41,15 @@ export default function Header({
         )}
       </div>
 
-      <div className="flex shrink-0 items-center gap-1">
-        {showDirections && directionsURL && (
-          <a
-            href={directionsURL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
-          >
-            <MapPin size={18} className="text-ink-secondary" />
-          </a>
-        )}
-        {showRefresh && (
-          <button className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary">
-            <RefreshCw size={18} className="text-ink-secondary" />
-          </button>
-        )}
-        {showSettings && (
-          <Link
-            href="/settings"
-            className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
-          >
-            <Settings size={18} className="text-ink-secondary" />
-          </Link>
-        )}
-      </div>
+      {showAbout && (
+        <Link
+          href="/about"
+          aria-label="About"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors hover:bg-surface-tertiary"
+        >
+          <Info size={18} className="text-ink-secondary" />
+        </Link>
+      )}
     </header>
   );
 }

@@ -16,9 +16,6 @@ export interface Lot {
   type: PermitType;
   lat: number;
   lng: number;
-  permits: string[];
-  enforcementHours: string;
-  freeAfter: string;
 }
 
 export interface HistoricalDataPoint {
@@ -30,11 +27,3 @@ export interface LotHistoricalData {
   lotId: string;
   data: HistoricalDataPoint[];
 }
-
-export type UserPermit =
-  | 'Commuter (Red)'
-  | 'Blue'
-  | 'Green'
-  | 'Faculty/Staff'
-  | 'Visitor'
-  | 'No Permit';
