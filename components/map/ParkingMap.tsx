@@ -4,8 +4,9 @@ import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Lot } from '@/types';
-import { statusColors } from '@/lib/status';
+import { getStatus, statusColors } from '@/lib/status';
 import { formatAvailable } from '@/lib/format';
+import { distanceMeters } from '@/lib/buildings';
 
 interface ParkingMapProps {
   lots: Lot[];
@@ -14,34 +15,57 @@ interface ParkingMapProps {
 // middle of all the lots, so every marker fits on a phone screen
 const CAMPUS_CENTER: [number, number] = [40.7424, -74.1797];
 
-function markerHtml(lot: Lot): string {
-  const color = statusColors[lot.status];
-  const label = lot.status === 'unknown' ? '?' : formatAvailable(lot.available);
+// lots this close together share one marker (the two Fenster levels are one building)
+const SAME_SPOT_METERS = 30;
+
+function groupBySpot(lots: Lot[]): Lot[][] {
+  const groups: Lot[][] = [];
+  lots.forEach((lot) => {
+    const group = groups.find((g) => distanceMeters(g[0], lot) < SAME_SPOT_METERS);
+    if (group) group.push(lot);
+    else groups.push([lot]);
+  });
+  return groups;
+}
+
+function markerHtml(group: Lot[]): string {
+  // add up the lots that have data, and color the marker by the total
+  const known = group.filter((lot) => lot.status !== 'unknown');
+  const available = known.reduce((sum, lot) => sum + (lot.available ?? 0), 0);
+  const total = known.reduce((sum, lot) => sum + lot.total, 0);
+  const status = known.length > 0 ? getStatus(available, total) : 'unknown';
+
+  const label = status === 'unknown' ? '?' : formatAvailable(available);
   return `
     <div style="
-      background:${color};
+      background:${statusColors[status]};
       width:34px;height:34px;
       border-radius:9999px;
-      border:2px solid #fff;
-      box-shadow:0 1px 4px rgba(0,0,0,0.3);
+      border:2px solid #080504;
+      box-shadow:0 1px 6px rgba(0,0,0,0.6);
       display:flex;align-items:center;justify-content:center;
-      color:#fff;font-weight:700;font-size:10px;
+      color:${status === 'unknown' ? '#EDEEF0' : '#080504'};
+      font-weight:700;font-size:10px;
     ">${label}</div>
   `;
 }
 
-function popupHtml(lot: Lot): string {
-  const count =
-    lot.status === 'unknown'
-      ? '<span style="color:#94A3B8">No data</span>'
-      : `<strong>${formatAvailable(lot.available)}</strong> spots open`;
-  return `
-    <div style="font-family:inherit;min-width:140px">
-      <p style="font-weight:600;margin:0 0 2px">${lot.name}</p>
-      <p style="margin:0 0 6px;font-size:13px">${count}</p>
-      <a href="/lot/${lot.slug}" style="font-size:13px;color:#D32032;font-weight:500">View details →</a>
-    </div>
-  `;
+function popupHtml(group: Lot[]): string {
+  return group
+    .map((lot) => {
+      const count =
+        lot.status === 'unknown'
+          ? '<span style="color:#8E8E96">No data</span>'
+          : `<strong>${formatAvailable(lot.available)}</strong> spots open`;
+      return `
+        <div style="min-width:150px;margin-bottom:6px">
+          <p style="font-weight:600;margin:0 0 2px">${lot.name}</p>
+          <p style="margin:0 0 4px;font-size:13px">${count}</p>
+          <a href="/lot/${lot.slug}" style="font-size:13px;color:#F0505F;font-weight:500">View details →</a>
+        </div>
+      `;
+    })
+    .join('');
 }
 
 export default function ParkingMap({ lots }: ParkingMapProps) {
@@ -58,22 +82,23 @@ export default function ParkingMap({ lots }: ParkingMapProps) {
     });
     mapRef.current = map;
 
+    // regular OpenStreetMap tiles, turned dark with a CSS filter in globals.css
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
       maxZoom: 19,
     }).addTo(map);
 
-    lots.forEach((lot) => {
+    groupBySpot(lots).forEach((group) => {
       const icon = L.divIcon({
-        html: markerHtml(lot),
+        html: markerHtml(group),
         className: '', // prevent default leaflet icon styles
         iconSize: [34, 34],
         iconAnchor: [17, 17],
       });
 
-      L.marker([lot.lat, lot.lng], { icon })
+      L.marker([group[0].lat, group[0].lng], { icon })
         .addTo(map)
-        .bindPopup(popupHtml(lot));
+        .bindPopup(popupHtml(group));
     });
 
     return () => {

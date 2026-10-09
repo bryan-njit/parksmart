@@ -100,7 +100,6 @@ export const SIMULATED_LOTS: Lot[] = rawLots.map((raw, i) => {
     permits: meta?.permits ?? [],
     enforcementHours: meta?.enforcementHours ?? 'Mon–Fri 7:00am – 10:00pm',
     freeAfter: meta?.freeAfter ?? '',
-    walkingDistances: meta?.walkingDistances ?? {},
   };
 });
 

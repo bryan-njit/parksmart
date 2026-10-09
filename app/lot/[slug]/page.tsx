@@ -7,6 +7,7 @@ import OccupancyChart from '@/components/charts/OccupancyChart';
 import { SIMULATED_LOTS, SIMULATED_HISTORY } from '@/data/simulated';
 import { formatAvailable, formatPct } from '@/lib/format';
 import { statusColors, statusTextClass } from '@/lib/status';
+import { BUILDINGS, walkMinutes } from '@/lib/buildings';
 import { Shield, Clock, MapPin } from 'lucide-react';
 
 interface Props {
@@ -19,6 +20,11 @@ export default function LotDetailPage({ params }: Props) {
 
   const history = SIMULATED_HISTORY.find((h) => h.lotId === lot.slug);
   const peakPoint = history?.data.reduce((max, d) => (d.occupied > max.occupied ? d : max));
+
+  // the 4 closest buildings, same math as the dashboard
+  const nearby = BUILDINGS.map((b) => ({ name: b.name, minutes: walkMinutes(lot, b) }))
+    .sort((a, b) => a.minutes - b.minutes)
+    .slice(0, 4);
 
   return (
     <AppShell>
@@ -81,22 +87,20 @@ export default function LotDetailPage({ params }: Props) {
         )}
 
         {/* Walking distances */}
-        {Object.keys(lot.walkingDistances).length > 0 && (
-          <div className="rounded-xl border bg-surface-secondary p-4">
-            <div className="mb-3 flex items-center gap-2">
-              <MapPin size={16} className="text-ink-secondary" />
-              <span className="text-sm font-semibold text-ink">Walking Distances</span>
-            </div>
-            <div className="space-y-1.5">
-              {Object.entries(lot.walkingDistances).map(([building, time]) => (
-                <div key={building} className="flex justify-between">
-                  <span className="text-sm text-ink-secondary">{building}</span>
-                  <span className="text-sm font-medium text-ink">{time}</span>
-                </div>
-              ))}
-            </div>
+        <div className="rounded-xl border bg-surface-secondary p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <MapPin size={16} className="text-ink-secondary" />
+            <span className="text-sm font-semibold text-ink">Nearby Buildings</span>
           </div>
-        )}
+          <div className="space-y-1.5">
+            {nearby.map((b) => (
+              <div key={b.name} className="flex justify-between">
+                <span className="text-sm text-ink-secondary">{b.name}</span>
+                <span className="text-sm font-medium text-ink">{b.minutes} min walk</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Address */}
         <div className="pb-4">

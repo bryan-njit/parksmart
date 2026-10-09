@@ -19,7 +19,8 @@ export default function MapPage() {
   return (
     <AppShell>
       <Header title="Campus Map" />
-      <div className="h-[calc(100vh-3.5rem-5rem)]">
+      {/* dvh instead of vh so the map doesn't hide under the browser bar on iPhones */}
+      <div className="h-[calc(100dvh-3.5rem-5rem)]">
         <ParkingMap lots={SIMULATED_LOTS} />
       </div>
     </AppShell>

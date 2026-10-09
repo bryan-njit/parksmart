@@ -19,7 +19,6 @@ export interface Lot {
   permits: string[];
   enforcementHours: string;
   freeAfter: string;
-  walkingDistances: Record<string, string>;
 }
 
 export interface HistoricalDataPoint {

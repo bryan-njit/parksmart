@@ -22,6 +22,37 @@ body {
   display: none;
 }
 
+/* dark versions of leaflet's map controls and popups */
+.leaflet-container {
+  background: #080504;
+  font-family: inherit;
+}
+/* flips the light map colors to dark, then turns the hues back so
+   water stays blue and parks stay green */
+.leaflet-container .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9);
+}
+.leaflet-container .leaflet-popup-content-wrapper,
+.leaflet-container .leaflet-popup-tip {
+  background: #1c1918;
+  color: #edeef0;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: #8e8e96;
+}
+.leaflet-container .leaflet-bar a {
+  background: #1c1918;
+  color: #edeef0;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(8, 5, 4, 0.7);
+  color: #8e8e96;
+}
+.leaflet-container .leaflet-control-attribution a {
+  color: #a8a8b0;
+}
+
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
