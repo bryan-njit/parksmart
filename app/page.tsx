@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import AppShell from '@/components/layout/AppShell';
 import Header from '@/components/layout/Header';
 import LotCard from '@/components/lots/LotCard';
+import RecommendedCard from '@/components/lots/RecommendedCard';
 import PollIndicator from '@/components/lots/PollIndicator';
 import { useParkingData } from '@/hooks/useParkingData';
 import { BUILDINGS, CAMPUS_CENTER, Point, distanceMeters, walkMinutes } from '@/lib/buildings';
@@ -141,7 +142,7 @@ export default function DashboardPage() {
         </section>
 
         {bestLot && (
-          <LotCard lot={bestLot} size="lg" label={bestLabel} walkMinutes={walkTo(bestLot)} />
+          <RecommendedCard lot={bestLot} label={bestLabel} walkMinutes={walkTo(bestLot)} />
         )}
 
         <section>
