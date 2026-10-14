@@ -28,8 +28,8 @@ export const LOT_METADATA: Record<string, LotMeta> = {
   },
   'Lot 10': {
     slug: 'lot-10',
-    lat: 40.7454,
-    lng: -74.1796,
+    lat: 40.7432,
+    lng: -74.1824,
   },
   FENS1: {
     slug: 'fenster-l1',
