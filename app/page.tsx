@@ -155,7 +155,7 @@ export default function DashboardPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {sortedLots.map((lot) => (
-              <LotCard key={lot.id} lot={lot} walkMinutes={walkTo(lot)} />
+              <LotCard key={lot.slug} lot={lot} walkMinutes={walkTo(lot)} />
             ))}
           </div>
         </section>

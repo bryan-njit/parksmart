@@ -3,10 +3,8 @@ export type LotStatus = 'open' | 'filling' | 'busy' | 'full' | 'unknown';
 export type PermitType = 'regular' | 'facstaff';
 
 export interface Lot {
-  id: string;
   slug: string;
   name: string;
-  siteName: string;
   address: string;
   addressURL: string;
   available: number | null;

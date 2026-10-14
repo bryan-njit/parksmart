@@ -1,106 +1,106 @@
 import { Lot, LotHistoricalData } from '@/types';
 import { getStatus } from '@/lib/status';
-import { LOT_METADATA } from '@/lib/lots';
 
-// Simulated live lot data — mirrors the real NJIT API structure
-// Based on actual cached API responses (parking_data.json)
-const rawLots = [
+// demo numbers shaped like NJIT's parking feed (mobile.njit.edu/parking/data.php).
+// lat/lng come from OpenStreetMap using each lot's address (ECC is approximate)
+const demoLots: Omit<Lot, 'status'>[] = [
   {
-    siteName: 'PARK',
+    slug: 'parking-deck',
     name: 'Parking Deck',
     address: '154 Summit Street, Newark, NJ 07103',
     addressURL: 'http://maps.google.com/?q=154+Summit+Street,+Newark,+NJ+07103',
     available: 1491,
     occupied: 194,
     total: 1685,
-    type: 'regular' as const,
+    type: 'regular',
+    lat: 40.7402,
+    lng: -74.1784,
   },
   {
-    siteName: 'Science & Tech Garage',
+    slug: 'science-tech-garage',
     name: 'Science & Technology Garage',
     address: '42 Wilsey Street, Newark, NJ 07103',
     addressURL: 'http://maps.google.com/?q=42+Wilsey+Street,+Newark,+NJ+07103',
     available: 735,
     occupied: 187,
     total: 922,
-    type: 'regular' as const,
+    type: 'regular',
+    lat: 40.7433,
+    lng: -74.1823,
   },
   {
-    siteName: 'Lot 16',
+    slug: 'lot-16',
     name: 'Parking Lot #16',
     address: '269 New Street, Newark, NJ 07103',
     addressURL: 'http://maps.google.com/?q=269+New+Street,+Newark,+NJ+07103',
     available: 167,
     occupied: 15,
     total: 182,
-    type: 'regular' as const,
+    type: 'regular',
+    lat: 40.7439,
+    lng: -74.1819,
   },
   {
-    siteName: 'ECC',
+    slug: 'ecc-deck',
     name: 'ECC Deck',
     address: '193 Academy St, Newark, NJ 07013',
     addressURL: 'http://maps.google.com/?q=193+Academy+St,+Newark,+NJ+07013',
-    // Sensor bug: negative occupancy — treated as unknown
+    // NJIT's sensor here reports negative cars, so there's no usable number
     available: null,
     occupied: -60,
-    total: 100,
-    type: 'regular' as const,
+    total: 155,
+    type: 'regular',
+    lat: 40.7395,
+    lng: -74.179,
   },
   {
-    siteName: 'Lot 10',
+    slug: 'lot-10',
     name: 'Parking Lot #10',
     address: '46 Wilsey Street, Newark, NJ 07103',
     addressURL: 'http://maps.google.com/?q=46+Wilsey+Street,+Newark,+NJ+07103',
-    // API returns "Not Avaiable" (their typo) — treated as unknown
+    // NJIT sends "Not Avaiable" (their typo) here instead of a number
     available: null,
     occupied: 169,
     total: 37,
-    type: 'regular' as const,
+    type: 'regular',
+    lat: 40.7432,
+    lng: -74.1824,
   },
   {
-    siteName: 'FENS1',
+    slug: 'fenster-l1',
     name: 'Fenster Level 1',
     address: '142 New Street, Newark, NJ 07103',
     addressURL: 'http://maps.google.com/?q=142+New+Street,+Newark,+NJ+07103',
     available: 26,
     occupied: 16,
     total: 42,
-    type: 'facstaff' as const, // NJIT's data says "reserved", but it's a faculty/staff lot
+    type: 'facstaff', // NJIT's data says "reserved", but it's a faculty/staff lot
+    lat: 40.7424,
+    lng: -74.1773,
   },
   {
-    siteName: 'FENS2',
+    slug: 'fenster-l2',
     name: 'Fenster Level 2',
     address: '144 New Street, Newark, NJ 07103',
     addressURL: 'http://maps.google.com/?q=144+New+Street,+Newark,+NJ+07103',
-    // Sensor bug: available > total
+    // NJIT's sensor reports negative cars here too
     available: null,
     occupied: -2,
     total: 42,
-    type: 'facstaff' as const,
+    type: 'facstaff',
+    lat: 40.7424,
+    lng: -74.1771,
   },
 ];
 
-export const SIMULATED_LOTS: Lot[] = rawLots.map((raw, i) => {
-  const meta = LOT_METADATA[raw.siteName];
-  return {
-    id: String(i),
-    slug: meta?.slug ?? raw.siteName.toLowerCase().replace(/\s+/g, '-'),
-    name: raw.name,
-    siteName: raw.siteName,
-    address: raw.address,
-    addressURL: raw.addressURL,
-    available: raw.available,
-    occupied: raw.occupied,
-    total: raw.total,
-    status: getStatus(raw.available, raw.total),
-    type: raw.type,
-    lat: meta?.lat ?? 40.742,
-    lng: meta?.lng ?? -74.178,
-  };
-});
+export const SIMULATED_LOTS: Lot[] = demoLots.map((lot) => ({
+  ...lot,
+  status: getStatus(lot.available, lot.total),
+}));
 
-// Historical occupancy data — from real deck_PARK.json and deck_stpg.json
-// Values represent avg occupied count at each 10-min interval, 7:30am–10:50pm
+// average cars parked every 10 minutes, 7:30am to 10:50pm. the Parking Deck and
+// Science & Tech numbers are NJIT's real averages. NJIT's Lot 16 history is stuck
+// at 45 all day (another broken sensor), so the Lot 16 numbers are made up
 const TIME_KEYS = [
   '7:30 am','7:40 am','7:50 am','8 am','8:10 am','8:20 am','8:30 am','8:40 am','8:50 am',
   '9 am','9:10 am','9:20 am','9:30 am','9:40 am','9:50 am','10 am','10:10 am','10:20 am',
@@ -148,14 +148,14 @@ const LOT16_OCCUPIED = [
 export const SIMULATED_HISTORY: LotHistoricalData[] = [
   {
     lotId: 'parking-deck',
-    data: TIME_KEYS.map((time, i) => ({ time, occupied: PARK_OCCUPIED[i] ?? 0 })),
+    data: TIME_KEYS.map((time, i) => ({ time, occupied: PARK_OCCUPIED[i] })),
   },
   {
     lotId: 'science-tech-garage',
-    data: TIME_KEYS.map((time, i) => ({ time, occupied: STPG_OCCUPIED[i] ?? 0 })),
+    data: TIME_KEYS.map((time, i) => ({ time, occupied: STPG_OCCUPIED[i] })),
   },
   {
     lotId: 'lot-16',
-    data: TIME_KEYS.map((time, i) => ({ time, occupied: LOT16_OCCUPIED[i] ?? 0 })),
+    data: TIME_KEYS.map((time, i) => ({ time, occupied: LOT16_OCCUPIED[i] })),
   },
 ];
