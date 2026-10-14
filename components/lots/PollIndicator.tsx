@@ -19,15 +19,14 @@ export default function PollIndicator({ lastUpdated }: PollIndicatorProps) {
   const minutes = Math.floor(seconds / 60);
   const isStale = minutes >= 2;
 
-  const colorClass = minutes >= 5
-    ? 'text-status-full'
-    : isStale
-    ? 'text-status-filling'
-    : 'text-ink-tertiary';
+  // grey normally, yellow after 2 minutes, red after 5
+  let colorClass = 'text-ink-tertiary';
+  if (minutes >= 5) colorClass = 'text-status-full';
+  else if (isStale) colorClass = 'text-status-filling';
 
-  const label = seconds < 60
-    ? `Updated ${seconds} sec ago`
-    : `Updated ${minutes} min ago${isStale ? ' — data may be outdated' : ''}`;
+  let label = `Updated ${seconds} sec ago`;
+  if (minutes >= 1) label = `Updated ${minutes} min ago`;
+  if (isStale) label += ' — data may be outdated';
 
   const Icon = isStale ? AlertTriangle : RefreshCw;
 
