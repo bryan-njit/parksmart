@@ -44,8 +44,7 @@ export default function LotDetailPage({ params }: Props) {
           <div className="mt-4 px-4">
             <FillBar available={lot.available} total={lot.total} status={lot.status} size="lg" />
             <p className="mt-2 text-center text-sm text-ink-secondary">
-              {lot.available !== null ? lot.available.toLocaleString() : '—'} of{' '}
-              {lot.total.toLocaleString()} · {formatPct(lot.available, lot.total)} open
+              {formatAvailable(lot.available)} of {lot.total.toLocaleString()} · {formatPct(lot.available, lot.total)} open
             </p>
             <div className="mt-3">
               <PermitBadge type={lot.type} />
